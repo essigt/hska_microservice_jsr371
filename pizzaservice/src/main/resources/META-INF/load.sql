@@ -1,0 +1,1 @@
+INSERT INTO Pizza(name) VALUES('Margarita'), ('Salami'), ('Hawai'), ('Schinken'), ('Vier Jahreszeiten');
