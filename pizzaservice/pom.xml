@@ -23,8 +23,30 @@
 	</dependencies>
 	<build>
 		<finalName>pizzaservice</finalName>
+		<plugins>
+			<plugin>
+				<groupId>com.spotify</groupId>
+				<artifactId>docker-maven-plugin</artifactId>
+				<version>${docker-maven-plugin.version}</version>
+				<configuration>
+					<imageName>essigt/ms_pizzaservice</imageName>
+					<baseImage>airhacks/wildfly</baseImage>
+					<!-- copy the service's war file from target into the deployment directory of the image -->
+					<resources>
+						<resource>
+							<!-- TODO: Use Env ${DEPLOYMENT_DIR} -->
+							<targetPath>/opt/wildfly-10.1.0.Final/standalone/deployments/</targetPath>
+							<directory>${project.build.directory}</directory>
+							<include>${project.build.finalName}.war</include>
+						</resource>
+					</resources>
+				</configuration>
+			</plugin>
+		</plugins>
 	</build>
 	<properties>
+		<docker-maven-plugin.version>0.4.13</docker-maven-plugin.version>
+
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
 		<failOnMissingWebXml>false</failOnMissingWebXml>
