@@ -2,10 +2,13 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <html>
 <head>
-    <title>MVC 1.0</title>
+    <title>HSKA Pizza Shop</title>
 </head>
 <body>
-<h1>Comments</h1>
+
+
+
+
 <c:if test="${bindingResult != null}">
     <ul>
         <c:forEach var="message" items="${bindingResult.allMessages}">
@@ -13,14 +16,18 @@
         </c:forEach>
     </ul>
 </c:if>
-<form action="${mvc.basePath}/comments" method="post">
-    <input name="comment" placeholder="Comment"><input type="submit" value="Send">
+<form action="${mvc.basePath}/placeorder" method="post">
+	<select name="id">
+		<c:forEach var="pizza" items="${pizzas}">
+	        <option value="${mvc.encoders.html(pizza.id)}" >${mvc.encoders.html(pizza.name)}</option>
+	    </c:forEach>
+	</select><br>
+	<input name="amount" placeholder="Amount"><br>
+    <input name="comment" placeholder="Comment"><br>
+    <input type="submit" value="Place Order">
+    
     <input type="hidden" name="${mvc.csrf.name}" value="${mvc.csrf.token}">
 </form>
-<ul>
-    <c:forEach var="comment" items="${comments.comments}">
-        <li>${mvc.encoders.html(comment)}</li>
-    </c:forEach>
-</ul>
+
 </body>
 </html>

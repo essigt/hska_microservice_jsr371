@@ -40,7 +40,7 @@
 				<version>${docker-maven-plugin.version}</version>
 				<configuration>
 					<imageName>essigt/ms_orderservice</imageName>
-					<baseImage>airhacks/payara-configured</baseImage>
+					<baseImage>airhacks/payara</baseImage>
 					<!-- copy the service's war file from target into the deployment directory of the image -->
 					<resources>
 						<resource>
@@ -50,6 +50,9 @@
 							<include>${project.build.finalName}.war</include>
 						</resource>
 					</resources>
+					<env>
+					<WAR>${project.build.finalName}.war</WAR>
+					</env>
 				</configuration>
 			</plugin>
 
